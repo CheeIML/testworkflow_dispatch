@@ -1,0 +1,23 @@
+name: "Manual Deployment"
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment_name:
+        description: 'Environment'     
+        required: true
+        default: 'warning'
+      region:
+        description: 'Region'
+        required: true
+
+jobs:
+  deployment:
+    name: 'Manual Deployment'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Reading user inputs'
+        run: |
+          echo "Environment: ${{ github.event.inputs.environment_name }}"
+          echo "Region: ${{ github.event.inputs.region }}" 
