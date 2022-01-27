@@ -6,7 +6,6 @@ on:
       environment_name:
         description: 'Environment'     
         required: true
-        default: 'warning'
       region:
         description: 'Region'
         required: true
@@ -15,7 +14,7 @@ jobs:
   deployment:
     name: 'Manual Deployment'
     runs-on: ubuntu-latest
-
+    environment: dev
     steps:
       - name: 'Reading user inputs'
         run: |
