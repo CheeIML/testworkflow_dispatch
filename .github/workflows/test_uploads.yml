@@ -1,0 +1,24 @@
+# workflow to test uploads
+
+name: "Test Upload"
+
+on:
+  pull_request:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  test_upload:
+    runs_on: ubuntu-latest
+    steps:
+      - name: "Creating artifacts..."
+        run: |
+          mkdir -p /tmp/artifact
+          echo "HELLO PLAN FILE" > /tmp/artifact/test.tfplan
+
+      - name: "Uploading artifacts"
+        uses: actions/upload-artifact@v3
+        with:
+          name: test.tfplan
+          path: /tmp/artifact/test.tfplan
