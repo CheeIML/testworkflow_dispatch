@@ -1,0 +1,32 @@
+on:
+  pull_request_target:
+    types:
+      - closed
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  if_merged:
+    if: {{ $github.event.pull_request_target.merged == true }}
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "The PR was merged"
+        echo ${{ toJson(github) }}
+      shell:  bash
+
+    - name: Download artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        workflow: test_uploads.yaml
+        pr: ${{ github.event.pull_request.number }}
+        name: test.tfplan
+        path: /tmp
+
+    - name: Check downloaded artifact
+      run: |
+        ls -al /tmp
+        ls -al /tmp/test.tfplan
+        cat /tmp/test.tfplan

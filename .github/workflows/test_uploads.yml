@@ -10,7 +10,7 @@ env:
 
 jobs:
   test_upload:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: "Creating artifacts..."
         run: |
