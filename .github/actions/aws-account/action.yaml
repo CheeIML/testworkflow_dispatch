@@ -1,0 +1,23 @@
+name: 'AWS Account ID'
+
+inputs:
+  aws_profile:
+    description: 'AWS Profile to retrieve account id from'
+    required: true
+
+outputs:
+  account_id:
+    description: 'Account ID of given profile'
+    value: ${{ steps.get-account-id.outputs.account }}
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: 'Retrieve account id'
+      id: get-account-id
+      run: |
+        account=$(${{ github.action_path }}/scripts/testscript.sh \
+          ${{ inputs.aws_profile }})
+        echo "::set-output name=output::${account}"
+      shell: bash

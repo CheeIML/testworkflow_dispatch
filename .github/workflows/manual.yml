@@ -14,9 +14,15 @@ jobs:
   deployment:
     name: 'Manual Deployment'
     runs-on: ubuntu-latest
-    environment: dev
+    # environment: dev
     steps:
-      - name: 'Reading user inputs'
+      - name: 'Get AWS Account ID'
+        id: aws
+        uses: ./.github/actions/aws-account
+        with:
+          aws_profile: '${{ github.event.inputs.environment_name }}'
+
+      - name: 'Read ACCOUNT ID'
         run: |
-          echo "Environment: ${{ github.event.inputs.environment_name }}"
-          echo "Region: ${{ github.event.inputs.region }}" 
+          echo "ACCOUNT ID: ${{ steps.aws.outputs.account_id }}"
+        shell: bash
