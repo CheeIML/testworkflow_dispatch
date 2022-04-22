@@ -1,0 +1,24 @@
+name: "Pull Request Pipeline"
+
+on:
+  pull_request:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  create_plans:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Create 1 plan'
+        run: |
+          echo "Creating a test plan"
+          echo "plan1_data" > /tmp/plan1
+        shell: bash
+
+      # Not working with act due to lack of env vars??
+      - name: 'Uploading artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: plan1
+          path: /tmp/plan1
