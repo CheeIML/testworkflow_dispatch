@@ -19,5 +19,5 @@ runs:
       run: |
         account=$(${{ github.action_path }}/scripts/testscript.sh \
           ${{ inputs.aws_profile }})
-        echo "::set-output name=output::${account}"
+        echo "::set-output name=account::${account}"
       shell: bash
